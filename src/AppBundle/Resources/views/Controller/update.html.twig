@@ -1,13 +1,27 @@
-
 {% extends "base.html.twig" %}
 
-{% block title %}AppBundle:User:new{% endblock %}
+{% block title %}AppBundle:Person:new{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the User:new page</h1>
+    <h1>Welcome to the Tweet:update page</h1>
 
-    {{ form_start(userform ) }}
-    {{ form_widget(userform) }}
-    {{ form_end(userform) }}
+    {{ form_start(db, {'action': path('update_person', {'id': tweet.id})} ) }}
+    <div>
+        {{ form_label(db.first_name) }}
+        {{ form_widget(db.first_name) }}
+    </div>
+    <div>
+        {{ form_label(db.last_name) }}
+        {{ form_widget(db.last_name) }}
+    </div>
+    <div>
+        {{ form_label(db.description) }}
+        {{ form_widget(db.description) }}
+    </div>
+    <div>
+        {{ form_widget(db.save) }}
+
+    </div>
+    {{ form_end(db) }}
 
 {% endblock %}

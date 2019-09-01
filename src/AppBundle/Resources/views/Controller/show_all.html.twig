@@ -1,13 +1,16 @@
-
 {% extends "base.html.twig" %}
 
-{% block title %}AppBundle:User:new{% endblock %}
+{% block title %}AppBundle:Person:showAll{% endblock %}
 
 {% block body %}
-    <h1>Welcome to the User:new page</h1>
+    <h1>Welcome to the User:showAll page</h1>
 
-    {{ form_start(userform ) }}
-    {{ form_widget(userform) }}
-    {{ form_end(userform) }}
+    <ul>
+        {% for people in people %}
+            <li>
+                {{ people.firstName }}  {{ people.lastName }} {{ people.description }}
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

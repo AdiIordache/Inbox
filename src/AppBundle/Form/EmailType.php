@@ -2,35 +2,27 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Email;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class EmailType extends AbstractType
 {
-    /**
-     * {@inheritdoc}
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('emailAddress')->add('person');
-    }/**
-     * {@inheritdoc}
-     */
+        $builder
+            ->add('emailAddress',TextType::class)
+            ->add('type',TextType::class)
+            ->add('save',SubmitType::class, ['label' => 'Save Email']);
+    }
+
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Email'
-        ));
+        $resolver->setDefaults(
+            ['data_class' => Email::class]
+        );
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'appbundle_email';
-    }
-
-
 }

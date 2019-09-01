@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}AppBundle:Person:newPerson{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Person page</h1>
+    <h2>Here you can add email address to persons</h2>
+
+    {{ form_start(form_email,{'action':path('addEmail',{'id':person.id})}) }}
+    <div>
+        {{ form_label(form_email.emailAddress) }}
+        {{ form_widget(form_email.emailAddress) }}
+    </div>
+    <div>
+    {{ form_label(form_email.type) }}
+    {{ form_widget(form_email.type) }}
+    </div>
+    <div>
+        {{ form_widget(form_email.save) }}
+    </div>
+    {{ form_end(form_email) }}
+
+{% endblock %}

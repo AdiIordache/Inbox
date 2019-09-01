@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Person
 {
+
     /**
      * @var int
      *
@@ -24,27 +26,27 @@ class Person
     /**
      * @var string
      *
-     * @ORM\Column(name="first_name", type="string", length=30)
+     * @ORM\Column(name="firstName", type="string", length=255)
      */
     private $firstName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="last_name", type="string", length=30)
+     * @ORM\Column(name="lastName", type="string", length=255)
      */
     private $lastName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=100)
+     * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -54,7 +56,7 @@ class Person
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
      *
@@ -68,7 +70,7 @@ class Person
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
      * @return string
      */
@@ -78,7 +80,7 @@ class Person
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
      *
@@ -92,7 +94,7 @@ class Person
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
      * @return string
      */
@@ -102,7 +104,7 @@ class Person
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
      *
@@ -116,7 +118,7 @@ class Person
     }
 
     /**
-     * Get description
+     * Get description.
      *
      * @return string
      */
@@ -124,5 +126,129 @@ class Person
     {
         return $this->description;
     }
-}
+    /**
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="person")
+     */
+    private $addresses;
 
+    public function __construct()
+    {
+        $this->addresses = new ArrayCollection();
+        $this->phones = new ArrayCollection();
+        $this->emails = new ArrayCollection();
+        $this->groups = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
+     * @param mixed $addresses
+     */
+    public function setAddresses($addresses)
+    {
+        $this->addresses = $addresses;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Phone", mappedBy="person")
+     */
+    private $phones;
+
+    /**
+     * @return mixed
+     */
+    public function getPhones()
+    {
+        return $this->phones;
+    }
+
+    /**
+     * @param mixed $phones
+     */
+    public function setPhones($phones)
+    {
+        $this->phones = $phones;
+    }
+
+    /**
+     * @ORM\OneToMany(targetEntity="Email", mappedBy="person")
+     */
+    private $emails;
+
+    /**
+     * @return mixed
+     */
+    public function getEmails()
+    {
+        return $this->emails;
+    }
+
+    /**
+     * @param mixed $emails
+     */
+    public function setEmails($emails)
+    {
+        $this->emails = $emails;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Groups", inversedBy="persons")
+     * @ORM\JoinTable(name="persons_groups")
+     */
+    private $groups;
+
+    /**
+     * @return mixed
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * @param mixed $groups
+     * @return Person
+     */
+    public function setGroups($groups)
+    {
+        $this->groups = $groups;
+        return $this;
+    }
+
+    /**
+     * @param Groups $group
+     */
+    public function addPersonGroup(Groups $group)
+    {
+        if ($this->groups->contains($group)) {
+            return;
+        }
+        $this->groups->add($group);
+        $group->addPerson($this);
+    }
+    /**
+     * @param Groups $group
+     */
+    public function removePersonGroup(Groups $group)
+    {
+        if (!$this->groups->contains($group)) {
+            return;
+        }
+        $this->groups->removeElement($group);
+        $group->removePerson($this);
+    }
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+}

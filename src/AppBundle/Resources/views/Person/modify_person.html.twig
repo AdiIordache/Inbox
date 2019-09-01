@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}AppBundle:Person:modifyPerson{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Person page</h1>
+    <h2>Here you can modify persons from Database</h2>
+
+    {{ form_start(form_person,{'action':path('modify',{'id':person.id})})}}
+    {{ form_widget(form_person) }}
+    {{ form_end(form_person) }}
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block title %}AppBundle:Person:newPerson{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Person page</h1>
+    <h2>Here you can add phone number to persons</h2>
+
+    {{ form_start(form_phone,{'action':path('addPhone',{'id':person.id})}) }}
+    <div>
+        {{ form_label(form_phone.phoneNumber) }}
+        {{ form_widget(form_phone.phoneNumber) }}
+    </div>
+    <div>
+        {{ form_label(form_phone.type) }}
+        {{ form_widget(form_phone.type) }}
+    </div>
+    <div>
+        {{ form_widget(form_phone.save) }}
+    </div>
+    {{ form_end(form_phone) }}
+
+{% endblock %}

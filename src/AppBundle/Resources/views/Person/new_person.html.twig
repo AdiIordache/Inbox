@@ -1,0 +1,13 @@
+{% extends "base.html.twig" %}
+
+{% block title %}AppBundle:Person:newPerson{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Person page</h1>
+    <h2>Here you can add persons in Database</h2>
+
+    {{ form_start(form_person,{'action':path('create_person')}) }}
+    {{ form_widget(form_person) }}
+    {{ form_end(form_person) }}
+
+{% endblock %}

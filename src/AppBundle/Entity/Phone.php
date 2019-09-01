@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Phone
 {
+
     /**
      * @var int
      *
@@ -24,20 +25,20 @@ class Phone
     /**
      * @var int
      *
-     * @ORM\Column(name="phone_number", type="integer")
+     * @ORM\Column(name="phoneNumber", type="integer")
      */
     private $phoneNumber;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=10)
+     * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
 
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -47,9 +48,9 @@ class Phone
     }
 
     /**
-     * Set phoneNumber
+     * Set phoneNumber.
      *
-     * @param integer $phoneNumber
+     * @param int $phoneNumber
      *
      * @return Phone
      */
@@ -61,7 +62,7 @@ class Phone
     }
 
     /**
-     * Get phoneNumber
+     * Get phoneNumber.
      *
      * @return int
      */
@@ -71,7 +72,7 @@ class Phone
     }
 
     /**
-     * Set type
+     * Set type.
      *
      * @param string $type
      *
@@ -85,7 +86,7 @@ class Phone
     }
 
     /**
-     * Get type
+     * Get type.
      *
      * @return string
      */
@@ -93,5 +94,27 @@ class Phone
     {
         return $this->type;
     }
-}
+    /**
+     * @ORM\ManyToOne(targetEntity="Person")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     */
+    private $person;
 
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+
+}

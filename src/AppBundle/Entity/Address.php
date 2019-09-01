@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Address
 {
+
+
     /**
      * @var int
      *
@@ -24,27 +26,27 @@ class Address
     /**
      * @var string
      *
-     * @ORM\Column(name="city", type="string", length=20)
+     * @ORM\Column(name="city", type="string", length=255)
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="street", type="string", length=50)
+     * @ORM\Column(name="street", type="string", length=255)
      */
     private $street;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="number", type="string", length=10)
+     * @ORM\Column(name="house", type="string", length=255)
      */
-    private $number;
+    private $house;
 
 
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -54,7 +56,7 @@ class Address
     }
 
     /**
-     * Set city
+     * Set city.
      *
      * @param string $city
      *
@@ -68,7 +70,7 @@ class Address
     }
 
     /**
-     * Get city
+     * Get city.
      *
      * @return string
      */
@@ -78,7 +80,7 @@ class Address
     }
 
     /**
-     * Set street
+     * Set street.
      *
      * @param string $street
      *
@@ -92,7 +94,7 @@ class Address
     }
 
     /**
-     * Get street
+     * Get street.
      *
      * @return string
      */
@@ -102,27 +104,48 @@ class Address
     }
 
     /**
-     * Set number
+     * Set house.
      *
-     * @param string $number
+     * @param string $house
      *
      * @return Address
      */
-    public function setNumber($number)
+    public function setHouse($house)
     {
-        $this->number = $number;
+        $this->house = $house;
 
         return $this;
     }
 
     /**
-     * Get number
+     * Get house.
      *
      * @return string
      */
-    public function getNumber()
+    public function getHouse()
     {
-        return $this->number;
+        return $this->house;
     }
-}
+    /**
+     * @ORM\ManyToOne(targetEntity="Person")
+     * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+     */
+    private $person;
 
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person)
+    {
+        $this->person = $person;
+    }
+
+}
